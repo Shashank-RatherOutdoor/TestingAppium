@@ -117,7 +117,7 @@ namespace AppiumCSharp
                         var screenshot = BasePage.GetDriver().GetScreenshot();
                         string screenshotPath = $"{TestContext.CurrentContext.Test.MethodName}.png";
                         screenshot.SaveAsFile(screenshotPath);
-                        report.SaveScreenshotToReport(screenshotPath);
+                        //report.SaveScreenshotToReport(screenshotPath);
                     }
                 }
             }
@@ -140,7 +140,7 @@ namespace AppiumCSharp
             //Report.test.Info($"Browser navigated to {url}");
         }
 
-        private IConfiguration BuildTestDataFile() => configurationBuilder.AddJsonFile(@"Utils\TestsData.json").Build();
+       // private IConfiguration BuildTestDataFile() => configurationBuilder.AddJsonFile(@"Utils\TestsData.json").Build();
 
         protected string GetData(string value) => BuildTestDataFile().GetSection(value).Value;
 

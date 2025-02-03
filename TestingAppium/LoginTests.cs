@@ -31,6 +31,7 @@ namespace AppiumCSharp.Tests
         [Description("Checking that the password is dispalyed at the bottom of the screen")]
         [Test]
         public void IsPasswordDisplayedInLoginScreen() => 
-            Assert.IsTrue(loginPage.IsPasswordDisplayed(), "Password is not displayed in the screen");
+            //Assert.IsTrue(loginPage.IsPasswordDisplayed(), "Password is not displayed in the screen");
+            Assert.That(loginPage.IsPasswordDisplayed(), Is.True, "Password is not displayed on the screen");
     }
 }

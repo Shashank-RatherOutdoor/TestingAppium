@@ -14,8 +14,8 @@
   <ItemGroup>
     <PackageReference Include="Appium.WebDriver" Version="7.0.0" />
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+    <PackageReference Include="ExtentReports" Version="5.0.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Validation" Version="17.8.8" />
     <PackageReference Include="NUnit" Version="4.3.2" />
   </ItemGroup>
 
