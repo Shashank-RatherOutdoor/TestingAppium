@@ -1,21 +1,27 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.iOS;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace TestingAppium.LambdaTesting
 {
     [TestFixture]
     public class AppiumTests
     {
-        private IOSDriver driver;
+        private AppiumDriver driver;
+        public readonly int _customTimeoutInSeconds;
         private string username = "schannegowdaratheroutdoors";
         private string accessKey = "hVBsO3iCWqUaiNpK677h5s4Zii5GEnByYGBjvLUQ9YI7w3nVWF";
+        public static string platform = "android";  //android //ios
+        public static string deviceName = "Pixel 9 Pro XL"; //iPhone 16 Pro Max//Galaxy S25//Pixel 9 Pro XL
+        public static string platformVersion = "15"; //18 //15
 
         [SetUp]
         public void SetUp()
@@ -26,7 +32,16 @@ namespace TestingAppium.LambdaTesting
             options.AddAdditionalAppiumOption("accessKey", accessKey);
 
             // Initialize the remote WebDriver using LambdaTest Hub URL
-            driver = new IOSDriver(new Uri($"https://{username}:{accessKey}@mobile-hub.lambdatest.com/wd/hub"), options);
+            if(platform == "iOS")
+            {
+                driver = new IOSDriver(new Uri($"https://{username}:{accessKey}@mobile-hub.lambdatest.com/wd/hub"), options);
+
+            }
+            else
+            {
+                driver = new AndroidDriver(new Uri($"https://{username}:{accessKey}@mobile-hub.lambdatest.com/wd/hub"), options);
+
+            }
         }
 
         [TearDown]
@@ -41,6 +56,10 @@ namespace TestingAppium.LambdaTesting
         {
             // Login method
             driver.Navigate().GoToUrl("https://www.lews.com");
+            driver.Manage().Cookies.AddCookie(new Cookie("MCPopupClosed", "yes"));
+            driver.Manage().Cookies.AddCookie(new Cookie("OptanonAlertBoxClosed", ""));
+
+
 
             Login(driver, "schannegowda@ratheroutdoors.com", "Testing1!");
 
@@ -61,15 +80,16 @@ namespace TestingAppium.LambdaTesting
             Dictionary<string, object> ltOptions = new Dictionary<string, object>
             {
                 { "w3c", true },
-                { "platformName", "ios" },
-                { "deviceName", "iPhone 16 Pro Max" },
-                { "platformVersion", "18" },
+                { "platformName",  platform},
+                { "deviceName", deviceName},
+                { "platformVersion", platformVersion},
                 { "network", true },
                 { "timezone", "Kolkata" },
                 { "video", true },
                 { "geoLocation", "IN" },
                 { "isRealMobile", true },
-                { "console", true }
+                { "console", true },
+                {"unicodeKeyboard", true }
             };
 
             // Add the LambdaTest options to the AppiumOptions object
@@ -78,31 +98,43 @@ namespace TestingAppium.LambdaTesting
             return options;
         }
 
-        static void Login(IOSDriver driver, string email, string password)
+        static void Login(AppiumDriver driver, string email, string password)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
             // Locate the login UI and click it
-            IWebElement loginUI = driver.FindElement(By.CssSelector("div.HeaderColumns a.header__navigation__login"));
-            loginUI.Click();
+            IWebElement body = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.TagName("body")));
+            //IWebElement body = driver.FindElement(By.TagName("body"));
+            driver.Manage().Cookies.AddCookie(new Cookie("MCPopupClosed", "yes"));
+            driver.Manage().Cookies.AddCookie(new Cookie("OptanonAlertBoxClosed", ""));
 
+            IWebElement loginUI = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.CssSelector("div.HeaderColumns a.header__navigation__login")));
+            loginUI.Click();
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.StalenessOf(body));
             // Wait until the email input field is visible
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("email_input_field_id")));
+            //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("email_input_field_id")));
 
             // Locate the email input field and enter the email
-            IWebElement emailField = driver.FindElement(By.Id("email_input_field_id"));
+            IWebElement emailField = driver.FindElement(By.Id("Email"));
             emailField.SendKeys(email);
 
             // Locate the password input field and enter the password
-            IWebElement passwordField = driver.FindElement(By.Id("password_input_field_id"));
+            IWebElement passwordField = driver.FindElement(By.Id("Password"));
             passwordField.SendKeys(password);
+           //passwordField.SendKeys(Keys.Enter);
+            //if (platform == "android")
+            //{
+            //    driver.HideKeyboard();
+            //}
 
             // Locate the login button and click it
-            IWebElement loginButton = driver.FindElement(By.Id("login_button_id"));
+            body = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.TagName("body")));
+            IWebElement loginButton = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.CssSelector("form.login__form button[type='submit']")));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(loginButton));
             loginButton.Click();
 
-            // Optionally, wait until an element on the new page is visible after login
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("some_element_on_new_page")));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.StalenessOf(body));
         }
+
     }
 }
