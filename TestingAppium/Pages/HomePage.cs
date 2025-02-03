@@ -2,12 +2,12 @@
 using OpenQA.Selenium.Appium;
 using System.Threading;
 
-namespace AppiumCSharp.Pages
+namespace TestingAppium.Pages
 {
     public abstract class HomePage : BasePage
     {
         protected abstract By ProductItem { get; }
 
-        public void IsAddToCartButtonDisplayed() => WaitForElement(ProductItem);           
+        public void IsAddToCartButtonDisplayed() => WaitForElement(ProductItem);
     }
 }

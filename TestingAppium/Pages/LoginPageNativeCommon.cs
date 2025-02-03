@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Appium;
 using System.Threading;
 
-namespace AppiumCSharp.Pages
+namespace TestingAppium.Pages   
 {
     public abstract class LoginPageNativeCommon : LoginPage
     {

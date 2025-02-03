@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Appium;
 using System.Threading;
 
-namespace AppiumCSharp.Pages
+namespace TestingAppium.Pages
 {
     public abstract class LoginPage : BasePage
     {
@@ -13,7 +13,7 @@ namespace AppiumCSharp.Pages
 
 
         public void Login(string userName, string password)
-        {           
+        {
             SendKeysToElement(UserNameField, userName);
             SendKeysToElement(PasswordField, password);
             ClickOnElement(LoginButton);

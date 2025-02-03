@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Chrome;
 
-namespace AppiumCSharp.Utils
+namespace TestingAppium.Utilities
 {
     public class PlatformCapabilities
     {
@@ -16,7 +16,7 @@ namespace AppiumCSharp.Utils
                 appiumOptions.AddAdditionalAppiumOption("appWaitActivity", Startup.ReadFromAppSettings("AppActivity"));
                 appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.DeviceName, Startup.ReadFromAppSettings("DeviceName"));
                 appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.PlatformVersion, Startup.ReadFromAppSettings("OSVersion"));
-            }            
+            }
             return appiumOptions;
         }
 
@@ -29,7 +29,7 @@ namespace AppiumCSharp.Utils
                 appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.PlatformVersion, Startup.ReadFromAppSettings("PlatformVersion"));
                 appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.DeviceName, Startup.ReadFromAppSettings("DeviceName"));
                 appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.App, Startup.ReadFromAppSettings("App"));
-            }               
+            }
             return appiumOptions;
         }
 
@@ -42,7 +42,7 @@ namespace AppiumCSharp.Utils
                 appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.DeviceName, Startup.ReadFromAppSettings("DeviceName"));
                 appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.PlatformVersion, Startup.ReadFromAppSettings("OSVersion"));
                 //appiumOptions.AddAdditionalAppiumOption(ChromeOptions.Capability, JObject.Parse("{'w3c':false}")); //Required because of a bug in Appium C# client                   
-            }                
+            }
             return appiumOptions;
         }
 
@@ -54,7 +54,7 @@ namespace AppiumCSharp.Utils
                 appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.BrowserName, Startup.ReadFromAppSettings("BrowserName"));
                 appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.PlatformName, Startup.ReadFromAppSettings("PlatformName"));
                 appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.DeviceName, Startup.ReadFromAppSettings("DeviceName"));
-            }                
+            }
             return appiumOptions;
         }
     }

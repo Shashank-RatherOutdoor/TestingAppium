@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
+using TestingAppium.Utilities;
 
-namespace AppiumCSharp.Tests
+namespace TestingAppium.Tests
 {
     [TestFixture]
     [Parallelizable(ParallelScope.All)]
@@ -30,7 +31,7 @@ namespace AppiumCSharp.Tests
         [Category(TestCategory.SMOKE)]
         [Description("Checking that the password is dispalyed at the bottom of the screen")]
         [Test]
-        public void IsPasswordDisplayedInLoginScreen() => 
+        public void IsPasswordDisplayedInLoginScreen() =>
             //Assert.IsTrue(loginPage.IsPasswordDisplayed(), "Password is not displayed in the screen");
             Assert.That(loginPage.IsPasswordDisplayed(), Is.True, "Password is not displayed on the screen");
     }

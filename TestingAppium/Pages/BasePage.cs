@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using SeleniumExtras.WaitHelpers;
 using System.Threading;
 
-namespace AppiumCSharp
+namespace TestingAppium.Pages
 {
     public class BasePage
     {
@@ -146,7 +146,7 @@ namespace AppiumCSharp
         {
             try
             {
-                new WebDriverWait(GetDriver(), TimeSpan.FromSeconds(10)).Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(element));
+                new WebDriverWait(GetDriver(), TimeSpan.FromSeconds(10)).Until(ExpectedConditions.ElementIsVisible(element));
             }
             catch (Exception e)
             {
@@ -177,7 +177,7 @@ namespace AppiumCSharp
                     if (context.Contains(requiredContext))
                         GetDriver().Context = context;
                 }
-               //Report.test.Info($"Context has switched to webview {requiredContext}");
+                //Report.test.Info($"Context has switched to webview {requiredContext}");
             }
             catch (Exception e)
             {

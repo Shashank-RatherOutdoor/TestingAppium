@@ -6,7 +6,7 @@ using System;
 using ExtentReport = AventStack.ExtentReports.ExtentReports;
 
 
-namespace AppiumCSharp
+namespace TestingAppium.Utilities
 {
     public class Report
     {
@@ -14,13 +14,14 @@ namespace AppiumCSharp
         public static ExtentTest test;
         ExtentReport extent = new ExtentReport();
 
-        public void StartReport()
-        {
-            string dir = TestContext.CurrentContext.TestDirectory + "\\";
-            string fileName = GetType().ToString() + ".html";
-            var htmlReporter = new ExtentHtmlReporter(dir + fileName);
-            extent.AttachReporter(htmlReporter);
-        }
+        //public void StartReport()
+        //{
+        //    string dir = TestContext.CurrentContext.TestDirectory + "\\";
+        //    string fileName = GetType().ToString() + ".html";
+        //    string reportPath = dir + fileName;
+        //    var htmlReporter = new HtmlReporter(reportPath);
+        //    extent.AttachReporter(htmlReporter);
+        //}
 
         private void SaveTestDataToTheReport() => extent.Flush();
 

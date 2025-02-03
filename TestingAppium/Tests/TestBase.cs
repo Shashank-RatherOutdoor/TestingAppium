@@ -1,5 +1,4 @@
-using AppiumCSharp.Pages;
-using AppiumCSharp.Utils;
+using TestingAppium.Pages;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -12,16 +11,17 @@ using OpenQA.Selenium.Appium.Service;
 using System;
 using System.IO;
 using System.Threading;
+using TestingAppium.Utilities;
 
-namespace AppiumCSharp
+namespace TestingAppium.Tests
 {
     public class TestBase
-    {      
+    {
         AppiumLocalService appiumLocalService;
         PlatformCapabilities platformCapabilities = new PlatformCapabilities();
         AppiumOptions appiumOptions = new AppiumOptions();
         AppiumServiceBuilder appiumServiceBuilder = new AppiumServiceBuilder();
-       // Report report = new Report();
+        // Report report = new Report();
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
         private readonly string url = Startup.ReadFromAppSettings("AppUrl");
 
@@ -43,7 +43,7 @@ namespace AppiumCSharp
 
         private AppiumDriver InitializeDriver(PlatformType platformType)
         {
-            appiumOptions.AddAdditionalAppiumOption (MobileCapabilityType.NewCommandTimeout, 300);
+            appiumOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 300);
             appiumOptions.AddAdditionalAppiumOption("browserstack.user", username);
             appiumOptions.AddAdditionalAppiumOption("browserstack.key", accessKey);
             switch (platformType)
@@ -78,7 +78,7 @@ namespace AppiumCSharp
                     throw new Exception("No platform selected!");
             }
             return BasePage.GetDriver();
-        }       
+        }
 
 
         private void StartAppiumServer()
@@ -140,7 +140,7 @@ namespace AppiumCSharp
             //Report.test.Info($"Browser navigated to {url}");
         }
 
-       // private IConfiguration BuildTestDataFile() => configurationBuilder.AddJsonFile(@"Utils\TestsData.json").Build();
+        private IConfiguration BuildTestDataFile() => configurationBuilder.AddJsonFile(@"Utils\TestsData.json").Build();
 
         protected string GetData(string value) => BuildTestDataFile().GetSection(value).Value;
 
@@ -168,7 +168,7 @@ namespace AppiumCSharp
         public void TearDown()
         {
             AttachScreenshotToTheReport();
-           // report.LogTestStatus();
+            // report.LogTestStatus();
             CloseDriver();
         }
     }

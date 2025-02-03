@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 
-namespace AppiumCSharp
+namespace TestingAppium.Utilities
 {
     public static class Startup
     {
@@ -9,6 +9,7 @@ namespace AppiumCSharp
             new ConfigurationBuilder()
             .AddJsonFile(@$"ConfigFiles\appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json")
             .Build();
+
 
 
 

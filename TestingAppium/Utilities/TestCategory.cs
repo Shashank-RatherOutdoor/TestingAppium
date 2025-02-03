@@ -1,4 +1,4 @@
-﻿namespace AppiumCSharp
+﻿namespace TestingAppium.Utilities
 {
     public static class TestCategory
     {
