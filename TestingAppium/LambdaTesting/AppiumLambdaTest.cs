@@ -4,6 +4,7 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.iOS;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -19,9 +20,9 @@ namespace TestingAppium.LambdaTesting
         public readonly int _customTimeoutInSeconds;
         private string username = "schannegowdaratheroutdoors";
         private string accessKey = "hVBsO3iCWqUaiNpK677h5s4Zii5GEnByYGBjvLUQ9YI7w3nVWF";
-        public static string platform = "android";  //android //ios
-        public static string deviceName = "Pixel 9 Pro XL"; //iPhone 16 Pro Max//Galaxy S25//Pixel 9 Pro XL
-        public static string platformVersion = "15"; //18 //15
+        public static string platform = "iOS";  //android //iOS
+        public static string deviceName = "iPhone 16 Pro Max"; //iPhone 16 Pro Max//Galaxy S25//Pixel 9 Pro XL
+        public static string platformVersion = "18"; //18 //15
 
         [SetUp]
         public void SetUp()
@@ -39,7 +40,7 @@ namespace TestingAppium.LambdaTesting
             }
             else
             {
-                driver = new AndroidDriver(new Uri($"https://{username}:{accessKey}@mobile-hub.lambdatest.com/wd/hub"), options);
+                driver = new AndroidDriver(new Uri($"https://{username}:{accessKey}@mobile-hub.lambdatest.com/wd/hub"), options, TimeSpan.FromSeconds(600));
 
             }
         }
@@ -109,7 +110,12 @@ namespace TestingAppium.LambdaTesting
             driver.Manage().Cookies.AddCookie(new Cookie("OptanonAlertBoxClosed", ""));
 
             IWebElement loginUI = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.CssSelector("div.HeaderColumns a.header__navigation__login")));
-            loginUI.Click();
+            Actions actions = new Actions(driver);
+            actions.Click(loginUI).Build().Perform();
+            //var jsExecutor = (IJavaScriptExecutor)driver;
+            //jsExecutor.ExecuteScript("arguments[0].click();", loginUI);
+
+            //loginUI.Click();
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.StalenessOf(body));
             // Wait until the email input field is visible
             //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("email_input_field_id")));
@@ -134,7 +140,7 @@ namespace TestingAppium.LambdaTesting
             loginButton.Click();
 
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.StalenessOf(body));
-        }
+     }
 
     }
 }
