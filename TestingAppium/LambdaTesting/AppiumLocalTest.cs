@@ -22,6 +22,7 @@ namespace SeleniumAndroidTests
             capabilities.PlatformName = "Android";
             capabilities.BrowserName = "Chrome";
             capabilities.DeviceName = "Pixel 9 API 35"; // Use the device name found using adb //Pixel 9 API 35 //23043RP34I
+            capabilities.AutomationName = "UiAutomator2";
             capabilities.AddAdditionalAppiumOption(MobileCapabilityType.Udid, "emulator-5554"); // Replace YOUR_DEVICE_UDID with your device's UDID //emulator-5554 //a7b426b7
             capabilities.AddAdditionalAppiumOption("chromedriverExecutable", "C:\\ChromeDriver\\chromedriver_124.0.6367.219.exe"); // Replace with the actual path to your Chromedriver executable
             capabilities.AddAdditionalAppiumOption("androidPackage", "com.android.chrome"); // Add the androidPackage option
@@ -35,7 +36,7 @@ namespace SeleniumAndroidTests
             capabilities.AddAdditionalAppiumOption("goog:chromeOptions", chromeOptions);
 
             // Define the Appium server URI
-            var serverUri = new Uri("http://127.0.0.1:4723/wd/hub");
+            var serverUri = new Uri("http://192.168.29.212:4723/");
 
             // Initialize the driver
             driver = new AndroidDriver(serverUri, capabilities);
